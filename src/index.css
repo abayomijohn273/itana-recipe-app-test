@@ -1,3 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --color-primary: #222222;
+    --color-secondary: #DC9E7A;
+    --color-textColor: #222222;
+    --color-grayColor: #F8F8F8;
+}
+
+html,
+body {
+    font-family: 'Nunito Sans', sans-serif;
+    height: 100%;
+}
