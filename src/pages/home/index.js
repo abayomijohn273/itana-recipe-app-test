@@ -7,7 +7,7 @@ import RecipeLoading from '../../components/blocks/recipeLoading'
 const Home = () => {
     return (
         <MainWrapper>
-            <div className="w-10/12 md:w-7/12 lg:w-6/12 mx-auto">
+            <div className="w-full md:w-8/12 lg:w-7/12 xl:w-6/12 mx-auto">
                 <SearchForm />
             </div>
 
