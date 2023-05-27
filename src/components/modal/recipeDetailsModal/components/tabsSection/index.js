@@ -11,7 +11,7 @@ const TabItem = ({ tab, selectedTab, active, onClick, selectedDetails }) => {
 
         {selectedTab === tab && active && <div className='pl-4 lg:pl-6 pb-6 text-sm-15 lg:text-base'>
             {selectedTab === "Ingredient" ?
-                <IngredientListing ingredients={selectedDetails?.extendedIngredients} /> :
+                <IngredientListing ingredients={selectedDetails?.extendedIngredients || selectedDetails?.usedIngredients} /> :
                 <InstructionsListing instructions={selectedDetails?.analyzedInstructions} />}
         </div>}
     </div>

@@ -4,13 +4,14 @@ import SearchForm from '../../components/blocks/searchForm'
 import RecipeListingSection from './components/recipeListingSection'
 import RecipeLoading from '../../components/blocks/recipeLoading'
 import { selectRecipes, selectRecipesLoading } from '../../redux/slices/recipeSlice'
-import { getRandomRecipesAction } from '../../redux/actions/recipeAction'
+import { getRandomRecipesAction, getRecipesByIngredientsAction } from '../../redux/actions/recipeAction'
 import { useDispatch, useSelector } from 'react-redux'
 
 const Home = () => {
     const dispatch = useDispatch();
     const loading = useSelector(selectRecipesLoading);
     const recipes = useSelector(selectRecipes)
+        const [search, setSearch] = useState("");
 
     const fetchRandomRecipes = async () => {
         await dispatch(getRandomRecipesAction());
@@ -20,10 +21,27 @@ const Home = () => {
         fetchRandomRecipes();
     }, []);
 
+    const handleChangeSearchValue = (e) => {
+        setSearch(e.target.value);
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+        const params = {
+            ingredients: search?.trim(),
+        }
+        await dispatch(getRecipesByIngredientsAction(params))
+    }
+
     return (
         <MainWrapper>
             <div className="w-full md:w-8/12 lg:w-7/12 xl:w-6/12 mx-auto">
-                <SearchForm />
+                <SearchForm
+                    search={search}
+                    handleChangeSearchValue={handleChangeSearchValue}
+                    handleSubmit={handleSubmit}
+                />
             </div>
 
             <div className=''>
@@ -38,7 +56,11 @@ const Home = () => {
                 {
                     loading ?
                         <RecipeLoading /> :
-                        <RecipeListingSection recipes={recipes} />
+                        recipes?.length > 0 ?
+                            <RecipeListingSection recipes={recipes} />
+                            : <div className='pt-20 pb-24'>
+                                <p className='text-center text-2xl font-bold'>No record returned.</p>
+                            </div>
                 }
             </div>
         </MainWrapper>
