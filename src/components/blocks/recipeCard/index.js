@@ -6,7 +6,7 @@ const RecipeCard = ({ title, image, summary, handleShowModal }) => {
     return (
         <div onClick={handleShowModal} className={`mb-6 lg:mb-8 cursor-pointer ${style.card}`}>
             <div className="h-[17rem] w-full bg-grayColor rounded-2xl object-cover flex justify-center">
-                <img src={image || RecipeImg} alt="Recipe" className="rounded-2xl h-[17rem] w-full object-cover" />
+                <img src={image || RecipeImg} alt={`Recipe - ${title}`} className="rounded-2xl h-[17rem] w-full object-cover" />
 
                 <button type='button' className='absolute top-4 right-4 bg-[#4C4A4B] px-3 py-3 rounded-xl flex justify-center items-center z-10'>
                     <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -15,7 +15,7 @@ const RecipeCard = ({ title, image, summary, handleShowModal }) => {
                 </button>
             </div>
             <div className="pt-4 pr-3">
-                <p className="font-bold text-textColor text-lg lg:text-xl line-clamp-1">{title}</p>
+                <h3 className="font-bold text-textColor text-lg lg:text-xl line-clamp-1">{title}</h3>
                 <p
                     className="mt-2 text-sm-15 text-gray-500 leading-6 line-clamp-3"
                     dangerouslySetInnerHTML={{ __html: summary }}
