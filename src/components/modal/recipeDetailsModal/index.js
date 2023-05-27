@@ -3,7 +3,7 @@ import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
 
-const RecipeDetailsModal = ({ title, open, handleClose }) => {
+const RecipeDetailsModal = ({ title, open, handleClose, selectedDetails }) => {
   const cancelButtonRef = useRef(null);
 
   return (

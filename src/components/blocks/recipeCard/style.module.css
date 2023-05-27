@@ -2,14 +2,30 @@
     position: relative;
 }
 
-.card img, .card:hover div {
+.card img, .card div {
     transition: all ease-in-out 200ms;
 }
 
-.card:hover div:first-child {
-    background: #FFECC5;
+.card div:first-child {
+    position: relative;
+    overflow: hidden;
 }
 
-.card:hover img{
-    transform: scale(1.03);
+.card div:first-child:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .3);
+    border-radius: 1rem;
+}
+
+.card div:first-child img {
+    position: relative;
+}
+
+.card:hover div:first-child img {
+    transform: scale(1.03) rotate(-1deg);
 }
