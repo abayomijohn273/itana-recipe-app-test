@@ -1,0 +1,15 @@
+.card {
+    position: relative;
+}
+
+.card img, .card:hover div {
+    transition: all ease-in-out 200ms;
+}
+
+.card:hover div:first-child {
+    background: #FFECC5;
+}
+
+.card:hover img{
+    transform: scale(1.03);
+}
