@@ -1,6 +1,5 @@
 import axios from "axios";
-import { setError, setLoading, setRecipes } from "../slices/recipeSlice";
-import { toast } from "react-hot-toast";
+import { setLoading, setRecipe, setRecipeLoading, setRecipes } from "../slices/recipeSlice";
 import { errorHandler } from "../../utils/errorHandler";
 
 const API_URL = process.env.REACT_APP_API_URL
@@ -42,6 +41,23 @@ export const getRecipesByIngredientsAction = (params) => async (dispatch) => {
         });
         const data = response.data;
         dispatch(setRecipes(data));
+
+    } catch (err) {
+        errorHandler(dispatch, err);
+    }
+};
+
+export const getRecipeInformationAction = (id) => async (dispatch) => {
+    dispatch(setRecipeLoading(true));
+
+    try {
+        const response = await axios.get(API_URL + `/${id}/information`, {
+            headers: {
+                "x-api-key": API_KEY
+            }
+        });
+        const data = response.data;
+        dispatch(setRecipe(data));
 
     } catch (err) {
         errorHandler(dispatch, err);

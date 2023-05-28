@@ -11,7 +11,7 @@ const Card = () => {
     </div>
 }
 
-const RecipeLoading = () => {
+const RecipesLoading = () => {
     return (
         <div className='mt-8 lg:mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
             <Card />
@@ -22,4 +22,4 @@ const RecipeLoading = () => {
     )
 }
 
-export default RecipeLoading
+export default RecipesLoading

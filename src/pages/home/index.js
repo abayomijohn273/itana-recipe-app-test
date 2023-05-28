@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import MainWrapper from '../../components/layout/mainWrapper'
 import SearchForm from '../../components/blocks/searchForm'
 import RecipeListingSection from './components/recipeListingSection'
-import RecipeLoading from '../../components/blocks/recipeLoading'
+import RecipesLoading from '../../components/blocks/recipesLoading'
 import { selectRecipes, selectRecipesLoading } from '../../redux/slices/recipeSlice'
 import { getRandomRecipesAction, getRecipesByIngredientsAction } from '../../redux/actions/recipeAction'
 import { useDispatch, useSelector } from 'react-redux'
@@ -35,7 +34,7 @@ const Home = () => {
     }
 
     return (
-        <MainWrapper>
+        <div>
             <div className="w-full md:w-8/12 lg:w-7/12 xl:w-6/12 mx-auto">
                 <SearchForm
                     search={search}
@@ -55,7 +54,7 @@ const Home = () => {
                 </div>
                 {
                     loading ?
-                        <RecipeLoading /> :
+                        <RecipesLoading /> :
                         recipes?.length > 0 ?
                             <RecipeListingSection recipes={recipes} />
                             : <div className='pt-20 pb-24'>
@@ -63,7 +62,7 @@ const Home = () => {
                             </div>
                 }
             </div>
-        </MainWrapper>
+        </div>
     )
 }
 
