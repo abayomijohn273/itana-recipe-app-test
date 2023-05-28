@@ -1,36 +1,54 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import SearchForm from '../../components/blocks/searchForm'
 import RecipeListingSection from './components/recipeListingSection'
-import RecipesLoading from '../../components/blocks/recipesLoading'
-import { selectRecipes, selectRecipesLoading } from '../../redux/slices/recipeSlice'
+import { clearRecipes, selectRecipes, selectRecipesLoading } from '../../redux/slices/recipeSlice'
 import { getRandomRecipesAction, getRecipesByIngredientsAction } from '../../redux/actions/recipeAction'
 import { useDispatch, useSelector } from 'react-redux'
+import TopSection from './components/topSection'
+import EmptyListSection from './components/emptyListSection'
+import FilterSection from './components/filterSection'
 
 const Home = () => {
     const dispatch = useDispatch();
-    const loading = useSelector(selectRecipesLoading);
+    const loading = useSelector(selectRecipesLoading)
     const recipes = useSelector(selectRecipes)
-        const [search, setSearch] = useState("");
+    const [search, setSearch] = useState("");
+    const [hasMore, setHasMore] = useState(true)
 
     const fetchRandomRecipes = async () => {
         await dispatch(getRandomRecipesAction());
     }
 
-    useEffect(() => {
-        fetchRandomRecipes();
-    }, []);
-
     const handleChangeSearchValue = (e) => {
         setSearch(e.target.value);
     }
 
-    const handleSubmit = async (e) => {
+    const processSearch = async (e) => {
         e.preventDefault();
-        
+
         const params = {
             ingredients: search?.trim(),
         }
+
+        await dispatch(clearRecipes());
         await dispatch(getRecipesByIngredientsAction(params))
+    }
+
+
+    const fetchMoreData = async () => {
+        if (recipes?.length >= 500) {
+            setHasMore(false);
+            return;
+        }
+
+        if (search) {
+            const params = {
+                ingredients: search?.trim(),
+            }
+            await dispatch(getRecipesByIngredientsAction(params))
+        } else {
+            await fetchRandomRecipes();
+        }
     }
 
     return (
@@ -39,28 +57,25 @@ const Home = () => {
                 <SearchForm
                     search={search}
                     handleChangeSearchValue={handleChangeSearchValue}
-                    handleSubmit={handleSubmit}
+                    handleSubmit={processSearch}
                 />
             </div>
 
             <div className=''>
-                <div className="mt-8">
-                    <h2 className="text-xl lg:text-2xl font-bold text-primary">
-                        Recipes Results
-                    </h2>
-                    <p className="mt-2 text-gray-500 text-sm-15 lg:text-vase">
-                        {recipes?.length || 0} recipes found
-                    </p>
-                </div>
-                {
-                    loading ?
-                        <RecipesLoading /> :
-                        recipes?.length > 0 ?
-                            <RecipeListingSection recipes={recipes} />
-                            : <div className='pt-20 pb-24'>
-                                <p className='text-center text-2xl font-bold'>No record returned.</p>
-                            </div>
-                }
+                <TopSection recipes={recipes} />
+
+                <FilterSection />
+
+                <RecipeListingSection
+                    recipes={recipes}
+                    fetchMoreData={fetchMoreData}
+                    hasMore={hasMore}
+                />
+
+                <EmptyListSection
+                    recipes={recipes}
+                    loading={loading}
+                />
             </div>
         </div>
     )

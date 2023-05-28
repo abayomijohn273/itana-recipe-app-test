@@ -22,10 +22,11 @@
     border-radius: 1rem;
 }
 
-.card div:first-child img {
+.card div:first-child span img {
     position: relative;
+    transition: all ease-in-out 200ms !important;
 }
 
-.card:hover div:first-child img {
+.card:hover div:first-child span img {
     transform: scale(1.03) rotate(-1deg);
 }

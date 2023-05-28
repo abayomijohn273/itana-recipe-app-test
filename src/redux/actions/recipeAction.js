@@ -11,7 +11,7 @@ export const getRandomRecipesAction = () => async (dispatch) => {
     try {
         const response = await axios.get(API_URL + "/random", {
             params: {
-                number: 20
+                number: 15
             },
             headers: {
                 "x-api-key": API_KEY
@@ -32,7 +32,7 @@ export const getRecipesByIngredientsAction = (params) => async (dispatch) => {
         const response = await axios.get(API_URL + "/findByIngredients", {
             params: {
                 ...params,
-                number: 20,
+                number: 15,
                 sort: "max-used-ingredients"
             },
             headers: {

@@ -13,7 +13,7 @@ const recipesSlice = createSlice({
     initialState,
     reducers: {
         setRecipes: (state, action) => {
-            state.recipes = action.payload;
+            state.recipes = [...state.recipes, ...action.payload];
             state.loading = false;
             state.error = null;
         },
@@ -26,6 +26,11 @@ const recipesSlice = createSlice({
             state.loading = false;
         },
         clearError: (state) => {
+            state.error = null;
+        },
+        clearRecipes: (state) => {
+            state.recipes = [];
+            state.loading = false;
             state.error = null;
         },
 
@@ -41,7 +46,7 @@ const recipesSlice = createSlice({
     }
 })
 
-export const { setRecipes, setLoading, setError, clearError, setRecipe, setRecipeLoading } = recipesSlice.actions;
+export const { setRecipes, setLoading, setError, clearError, clearRecipes, setRecipe, setRecipeLoading } = recipesSlice.actions;
 
 export default recipesSlice.reducer;
 
