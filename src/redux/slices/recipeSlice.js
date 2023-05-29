@@ -24,6 +24,7 @@ const recipesSlice = createSlice({
         setError: (state, action) => {
             state.error = action.payload;
             state.loading = false;
+            state.recipeLoading = false;
         },
         clearError: (state) => {
             state.error = null;
@@ -56,3 +57,4 @@ export const selectRecipesError = (state) => state.recipes.error;
 
 export const selectRecipe = (state) => state.recipes.recipe;
 export const selectRecipeLoading = (state) => state.recipes.recipeLoading;
+export const selectRecipeError = (state) => state.recipes.error;

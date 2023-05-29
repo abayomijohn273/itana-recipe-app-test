@@ -10,7 +10,7 @@ const RecipeCard = ({ id, title, image, summary, handleShowModal }) => {
 
     return (
         <Link
-            to={`/${id}?title=${urlTitle}`}
+            to={`/recipe/${id}?title=${urlTitle}`}
             onClick={handleShowModal} className={`mb-6 lg:mb-8 cursor-pointer ${style.card}`}
         >
             <div className="h-[17rem] w-full bg-grayColor rounded-2xl object-cover flex justify-center">
