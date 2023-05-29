@@ -1,7 +1,7 @@
 import React from 'react'
 
 const DetailShare = ({ title, pathname }) => {
-    const linkUrl = `http://localhost:3000${pathname}`;
+    const linkUrl = `https://abayomi-recipe-app-test.vercel.app${pathname}`;
     const linkTitle = encodeURIComponent(title);
 
     return (
