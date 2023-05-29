@@ -23,7 +23,6 @@ const RecipeDetails = () => {
     }
 
     useEffect(() => {
-        console.log(location);
         const pathName = location?.pathname?.slice(1);
         fetchData(pathName)
     }, [location?.pathname])

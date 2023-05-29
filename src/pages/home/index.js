@@ -15,8 +15,8 @@ const Home = () => {
     const [search, setSearch] = useState("");
     const [hasMore, setHasMore] = useState(true)
 
-    const fetchRandomRecipes = async () => {
-        await dispatch(getRandomRecipesAction());
+    const fetchRandomRecipes = async (params = {}) => {
+        await dispatch(getRandomRecipesAction(params));
     }
 
     const handleChangeSearchValue = (e) => {
@@ -34,22 +34,49 @@ const Home = () => {
         await dispatch(getRecipesByIngredientsAction(params))
     }
 
+    const [filterDiets, setFilterDiets] = useState([])
 
-    const fetchMoreData = async () => {
+    const handleFilterChange = (e) => {
+        if (e.target.checked) {
+            setFilterDiets([...filterDiets, e.target.value]);
+        } else {
+            setFilterDiets(filterDiets.filter(diet => diet !== e.target.value));
+        }
+    }
+
+    // NOTE: Filter only works on GET Random API
+    // Does not work with Search by Ingredient API
+    const processFilter = async () => {
+        setSearch(""); // clear search value
+
+        const tags = filterDiets?.length > 0 ? filterDiets?.toString().toLowerCase() : undefined;
+
+        const params = {
+            tags
+        }
+
+        await dispatch(clearRecipes());
+        await fetchRandomRecipes(params);
+    }
+
+    const fetchData = async (params) => {
         if (recipes?.length >= 500) {
             setHasMore(false);
             return;
         }
 
         if (search) {
-            const params = {
+            const searchParams = {
                 ingredients: search?.trim(),
             }
-            await dispatch(getRecipesByIngredientsAction(params))
+            await dispatch(getRecipesByIngredientsAction(searchParams))
+        } else if (filterDiets?.length > 0) {
+            await processFilter();
         } else {
-            await fetchRandomRecipes();
+            await fetchRandomRecipes(params);
         }
     }
+
 
     return (
         <div>
@@ -64,11 +91,15 @@ const Home = () => {
             <div className=''>
                 <TopSection recipes={recipes} />
 
-                <FilterSection />
+                <FilterSection
+                    filterDiets={filterDiets}
+                    handleFilterChange={handleFilterChange}
+                    processFilter={processFilter}
+                />
 
                 <RecipeListingSection
                     recipes={recipes}
-                    fetchMoreData={fetchMoreData}
+                    fetchMoreData={fetchData}
                     hasMore={hasMore}
                 />
 

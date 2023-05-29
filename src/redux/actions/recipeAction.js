@@ -5,12 +5,13 @@ import { errorHandler } from "../../utils/errorHandler";
 const API_URL = process.env.REACT_APP_API_URL
 const API_KEY = process.env.REACT_APP_API_KEY
 
-export const getRandomRecipesAction = () => async (dispatch) => {
+export const getRandomRecipesAction = (params) => async (dispatch) => {
     dispatch(setLoading(true));
 
     try {
         const response = await axios.get(API_URL + "/random", {
             params: {
+                ...params,
                 number: 15
             },
             headers: {
