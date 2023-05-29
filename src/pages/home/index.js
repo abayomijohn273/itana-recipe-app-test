@@ -20,6 +20,11 @@ const Home = () => {
         fetchRandomRecipes();
     }, [])
 
+    useEffect(() => {
+        const MAX_LIMIT_LENGTH = 15;
+        setHasMore(recipes?.length < MAX_LIMIT_LENGTH ? false : true);
+    }, [recipes])
+
     const fetchRandomRecipes = async (params = {}) => {
         await dispatch(clearRecipes());
         await dispatch(setLoading(true));
@@ -44,6 +49,7 @@ const Home = () => {
     }
 
     const [filterDiets, setFilterDiets] = useState([])
+    const [filterParam, setFilterParam] = useState(undefined)
 
     const handleFilterChange = (e) => {
         if (e.target.checked) {
@@ -57,19 +63,19 @@ const Home = () => {
     // Does not work with Search by Ingredient API
     const processFilter = async () => {
         setSearch(""); // clear search value
-
         const tags = filterDiets?.length > 0 ? filterDiets?.toString().toLowerCase() : undefined;
-
         const params = {
             tags
         }
 
-        await dispatch(clearRecipes());
+        setFilterParam(params);
         await fetchRandomRecipes(params);
     }
 
     const fetchNextData = async (params) => {
-        if (recipes?.length >= 200) {
+        const MAX_DATA_LENGTH = 200;
+
+        if (recipes?.length >= MAX_DATA_LENGTH) {
             setHasMore(false);
             return;
         }
@@ -80,7 +86,7 @@ const Home = () => {
             }
             await dispatch(getRecipesByIngredientsAction(searchParams))
         } else if (filterDiets?.length > 0) {
-            await processFilter();
+            await dispatch(getRandomRecipesAction(filterParam));
         } else {
             await dispatch(getRandomRecipesAction(params));
         }
