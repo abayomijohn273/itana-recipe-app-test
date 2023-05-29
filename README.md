@@ -1,8 +1,8 @@
 # Itana Recipe App Assessment Test
 
-This project was developed using [Create React App](https://github.com/facebook/create-react-app), [TailwindCSS](https://tailwindcss.com) and [Redux ToolKit](https://redux-toolkit.js.org).\
+This project was developed using [Create React App](https://github.com/facebook/create-react-app), [TailwindCSS](https://tailwindcss.com) and [Redux ToolKit](https://redux-toolkit.js.org).
 
-The recipe data was generated from a public API [Spoonacular API](https://spoonacular.com/) \
+The recipe data was generated from a public API [Spoonacular API](https://spoonacular.com/)
 
 The assessment was conducted by [Itana](https://www.itana.com/)
 
