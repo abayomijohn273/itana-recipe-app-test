@@ -1,6 +1,10 @@
 # Itana Recipe App Assessment Test
 
-This project was developed using [Create React App](https://github.com/facebook/create-react-app), [TailwindCSS](https://tailwindcss.com) and [Redux ToolKit](https://redux-toolkit.js.org).
+This project was developed using [Create React App](https://github.com/facebook/create-react-app), [TailwindCSS](https://tailwindcss.com) and [Redux ToolKit](https://redux-toolkit.js.org).\
+
+The recipe data was generated from a public API [Spoonacular API](https://spoonacular.com/) \
+
+The assessment was conducted by [Itana](https://www.itana.com/)
 
 ## Setup Information
 
@@ -9,7 +13,7 @@ To setup this project on your pc, run the following processes:
 ### `git clone https://github.com/abayomijohn273/itana-recipe-app-test.git`
 
 Runs the above command in your terminal on your preferred working directory to clone this repo.\
-Then Open this folder in your editor, i.e vscode or your preferred editor
+Then Open this folder in your editor, i.e vscode or your preferred editor.
 
 ### `Run npm install or yarn install`
 
