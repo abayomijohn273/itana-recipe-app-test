@@ -37,9 +37,10 @@ const Home = () => {
         const params = {
             ingredients: search?.trim(),
         }
-
         await dispatch(clearRecipes());
+        await dispatch(setLoading(true));
         await dispatch(getRecipesByIngredientsAction(params))
+        await dispatch(setLoading(false));
     }
 
     const [filterDiets, setFilterDiets] = useState([])
