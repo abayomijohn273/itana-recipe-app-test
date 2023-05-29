@@ -98,7 +98,7 @@ const Home = () => {
             </div>
 
             <div className=''>
-                <TopSection recipes={recipes} />
+                <TopSection />
 
                 <FilterSection
                     filterDiets={filterDiets}
