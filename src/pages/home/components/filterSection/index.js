@@ -80,7 +80,7 @@ const FilterSection = ({ filterDiets, handleFilterChange, processFilter }) => {
 
                             <button
                                 type='button'
-                                className='mt-3 mb-2 w-full mx-auto px-4 py-2 rounded-md bg-secondary text-white text-center text-sm font-semibold'
+                                className='mt-3 mb-2 w-full mx-auto px-4 py-2 rounded-md bg-secondary text-white text-center text-xs md:text-sm font-semibold'
                                 onClick={handleFilter}
                             >
                                 Filter

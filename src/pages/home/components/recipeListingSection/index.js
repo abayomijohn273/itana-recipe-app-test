@@ -5,9 +5,9 @@ import RecipesLoading from '../../../../components/blocks/recipesLoading';
 
 const RecipeListingSection = ({ recipes, hasMore, fetchMoreData }) => {
     return (
-        <>
+        <div id="recipeListing">
             <InfiniteScroll
-                dataLength={recipes.length}
+                dataLength={recipes?.length || 0}
                 next={fetchMoreData}
                 hasMore={hasMore}
                 loader={<RecipesLoading />}
@@ -25,7 +25,7 @@ const RecipeListingSection = ({ recipes, hasMore, fetchMoreData }) => {
                     }
                 </div>
             </InfiniteScroll>
-        </>
+        </div>
 
 
     )

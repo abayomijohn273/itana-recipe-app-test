@@ -1,22 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SearchForm from '../../components/blocks/searchForm'
 import RecipeListingSection from './components/recipeListingSection'
-import { clearRecipes, selectRecipes, selectRecipesLoading } from '../../redux/slices/recipeSlice'
+import { clearRecipes, selectRecipes, selectRecipesLoading, setLoading } from '../../redux/slices/recipeSlice'
 import { getRandomRecipesAction, getRecipesByIngredientsAction } from '../../redux/actions/recipeAction'
 import { useDispatch, useSelector } from 'react-redux'
 import TopSection from './components/topSection'
 import EmptyListSection from './components/emptyListSection'
 import FilterSection from './components/filterSection'
+import RecipesLoading from '../../components/blocks/recipesLoading'
 
 const Home = () => {
     const dispatch = useDispatch();
     const loading = useSelector(selectRecipesLoading)
     const recipes = useSelector(selectRecipes)
     const [search, setSearch] = useState("");
-    const [hasMore, setHasMore] = useState(true)
+    const [hasMore, setHasMore] = useState(true);
+
+    useEffect(() => {
+        fetchRandomRecipes();
+    }, [])
 
     const fetchRandomRecipes = async (params = {}) => {
+        await dispatch(clearRecipes());
+        await dispatch(setLoading(true));
         await dispatch(getRandomRecipesAction(params));
+        await dispatch(setLoading(false));
     }
 
     const handleChangeSearchValue = (e) => {
@@ -59,8 +67,8 @@ const Home = () => {
         await fetchRandomRecipes(params);
     }
 
-    const fetchData = async (params) => {
-        if (recipes?.length >= 500) {
+    const fetchNextData = async (params) => {
+        if (recipes?.length >= 200) {
             setHasMore(false);
             return;
         }
@@ -73,7 +81,7 @@ const Home = () => {
         } else if (filterDiets?.length > 0) {
             await processFilter();
         } else {
-            await fetchRandomRecipes(params);
+            await dispatch(getRandomRecipesAction(params));
         }
     }
 
@@ -97,16 +105,19 @@ const Home = () => {
                     processFilter={processFilter}
                 />
 
-                <RecipeListingSection
-                    recipes={recipes}
-                    fetchMoreData={fetchData}
-                    hasMore={hasMore}
-                />
-
-                <EmptyListSection
-                    recipes={recipes}
-                    loading={loading}
-                />
+                {
+                    loading ? <RecipesLoading /> :
+                        recipes?.length > 0 ?
+                            <RecipeListingSection
+                                recipes={recipes}
+                                fetchMoreData={fetchNextData}
+                                hasMore={hasMore}
+                            />
+                            : <EmptyListSection
+                                recipes={recipes}
+                                loading={loading}
+                            />
+                }
             </div>
         </div>
     )
