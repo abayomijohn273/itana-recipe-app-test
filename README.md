@@ -1,8 +1,8 @@
 # Itana Recipe App Assessment Test
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was developed using [Create React App](https://github.com/facebook/create-react-app), [TailwindCSS](https://tailwindcss.com) and [Redux ToolKit](https://redux-toolkit.js.org).
 
-## Installation
+## Setup Information
 
 To setup this project on your pc, run the following processes:
 
